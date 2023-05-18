@@ -262,7 +262,7 @@ button.input-icon:hover {
 .task-icon-opt {
   list-style: none;
   background-color: white;
-  z-index: 20;
+  z-index: 30;
   text-align: right;
   padding: 1rem;
   font-size: 1.5rem;
@@ -276,7 +276,7 @@ button.input-icon:hover {
 
 .backdrop {
   position: fixed;
-  z-index: 10;
+  z-index: 20;
   width: 100%;
   height: 100%;
   top: 0;
@@ -289,6 +289,7 @@ button.input-icon:hover {
   margin: 0;
   transition-duration: 100ms;
 }
+
 .task-icon-opt li button:hover {
   background-color: transparent;
   color: #ff106b;
@@ -398,4 +399,26 @@ button.input-icon:hover {
 .editor-task-footer-btn_cancel {
   color: white;
   background-color: transparent;
+}
+
+.error-editor {
+  text-align: center;
+  background-color: #ffdddd;
+  color: red;
+  animation: shake 250ms linear;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(-1%);
+  }
+  33% {
+    transform: translateX(1%);
+  }
+  66% {
+    transform: translateX(-1%);
+  }
+  100% {
+    transform: translateX(0);
+  }
 }

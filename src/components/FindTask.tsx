@@ -26,7 +26,9 @@ const FindTask = () => {
 
   const submitHandler = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!query) return;
+  };
+
+  const clearFields = () => {
     setQuery('');
     setFilteredTasks(undefined);
   };
@@ -41,9 +43,15 @@ const FindTask = () => {
           value={query}
         />
 
-        <button className="input-icon" type="submit">
-          <img src={!query ? searchIcon : delIcon} alt="search icon" />
-        </button>
+        {query ? (
+          <button className="input-icon" type="button" onClick={clearFields}>
+            <img src={delIcon} alt="search icon" />
+          </button>
+        ) : (
+          <div className="input-icon">
+            <img src={searchIcon} alt="search icon" />
+          </div>
+        )}
       </form>
       <div className="cards">
         {filteredTasks?.map((task) => (

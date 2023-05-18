@@ -10,3 +10,18 @@ export type TasksState = {
   items: TaskType[];
   showEditor: boolean;
 };
+
+export enum MonthList {
+  Jan,
+  Feb,
+  Mar,
+  Apr,
+  May,
+  Jun,
+  Jul,
+  Aug,
+  Sep,
+  Oct,
+  Nov,
+  Dec,
+}

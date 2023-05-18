@@ -1,9 +1,16 @@
 import fileIcon from '../assets/file-text.svg';
 import dotsIcon from '../assets/vertical-dots.svg';
 import Options from './Options';
+import { useState } from 'react';
 import { TaskType } from '../models/types.ts';
 
 const Task = ({ task }: { task: TaskType }) => {
+  const [showOption, setShowOption] = useState<boolean>(false);
+
+  const showOptionHandler = (show: boolean) => {
+    setShowOption(show);
+  };
+
   return (
     <div className={`task${task.completed ? ' complete' : ''}`}>
       <div className="task-content">
@@ -15,8 +22,17 @@ const Task = ({ task }: { task: TaskType }) => {
           <p>{task.date}</p>
         </div>
       </div>
-      {!true && <Options />}
-      <button className="task-icon-img_dots">
+      {showOption && (
+        <Options
+          id={task.id}
+          onShowOptionHandler={showOptionHandler}
+          completed={task.completed}
+        />
+      )}
+      <button
+        onClick={() => showOptionHandler(true)}
+        className="task-icon-img_dots"
+      >
         <img src={dotsIcon} alt="more option icon" />
       </button>
     </div>
