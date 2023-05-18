@@ -12,7 +12,7 @@ const dummyTasks = [
     description:
       'Find what is the problem with the video card that puts the black screen',
     date: 'April 21, 2023',
-    completed: false,
+    completed: true,
   },
   {
     id: 't3',

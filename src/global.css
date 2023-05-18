@@ -16,7 +16,7 @@ body {
   font-size: 1.6rem;
   background-color: transparent;
   border-radius: 2.7rem;
-  margin: 2rem auto 0;
+  margin: 3rem auto;
   padding: 2rem 3rem;
   background-color: white;
 }
@@ -321,8 +321,8 @@ button.input-icon:hover {
   }
 }
 
-/* Manage-Task */
-.manage-task {
+/* Editor-Task */
+.editor-task {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -341,7 +341,7 @@ button.input-icon:hover {
   }
 }
 
-.manage-task-form {
+.editor-task-form {
   border-radius: 1rem;
   padding: 1rem 2rem;
   color: white;
@@ -350,52 +350,52 @@ button.input-icon:hover {
 }
 
 @media (min-width: 480px) {
-  .manage-task-form {
+  .editor-task-form {
     width: 80%;
   }
 }
 
-.manage-task h2 {
+.editor-task h2 {
   margin: 0 auto 1rem;
   font-weight: 700;
 }
 
-.manage-task label {
+.editor-task label {
   margin: 0 0 0.6rem;
 }
 
-.manage-task input,
-.manage-task textarea {
+.editor-task input,
+.editor-task textarea {
   background-color: white;
   width: 100%;
   margin-bottom: 2rem;
 }
 
-.manage-task-footer {
+.editor-task-footer {
   width: 100%;
   text-align: right;
 }
 
-.manage-task-footer button {
+.editor-task-footer button {
   padding: 1rem 2rem;
 }
 
 @media (min-width: 480px) {
-  .manage-task-footer button {
+  .editor-task-footer button {
     padding: 1rem 3rem;
   }
 }
 
-.manage-task-footer-btn_submit {
+.editor-task-footer-btn_submit {
   background-color: #3f52e3;
   color: white;
 }
 
-.manage-task-footer-btn_submit:hover {
+.editor-task-footer-btn_submit:hover {
   background-color: #596dff;
 }
 
-.manage-task-footer-btn_cancel {
+.editor-task-footer-btn_cancel {
   color: white;
   background-color: transparent;
 }
