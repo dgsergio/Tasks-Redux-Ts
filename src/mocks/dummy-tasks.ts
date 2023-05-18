@@ -2,7 +2,7 @@ const dummyTasks = [
   {
     id: 't1',
     title: 'Study typescript',
-    description: 'Study typescript from 5 to 8 pm and do a practice exercise',
+    description: 'Study typescript from 5 to 8 pm and do a practice exercise.',
     date: 'April 20, 2023',
     completed: false,
   },
@@ -10,7 +10,7 @@ const dummyTasks = [
     id: 't2',
     title: 'Fix desktop PC',
     description:
-      'Find what is the problem with the video card that puts the black screen',
+      'Find what is the problem. The video card that puts the black screen. Something more right here',
     date: 'April 21, 2023',
     completed: true,
   },
