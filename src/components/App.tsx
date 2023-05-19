@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { TasksState } from '../models/types';
-import AllTask from './AllTask';
-import FindTask from './FindTask';
+import Tasks from './Tasks';
+import SearchTasks from './SearchTasks';
 import Header from './Header';
 import EditorTask from './EditorTask';
 
@@ -14,9 +14,9 @@ const App = () => {
     <>
       <Header />
       <main>
-        <FindTask />
+        <SearchTasks />
         {showEditor && <EditorTask />}
-        <AllTask />
+        <Tasks />
       </main>
     </>
   );

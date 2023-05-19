@@ -3,7 +3,7 @@ import { toggleShowEditor } from '../store';
 import Task from './Task';
 import { useSelector, useDispatch } from 'react-redux';
 
-const AllTask = () => {
+const Tasks = () => {
   const tasks: TaskType[] = useSelector((state: TasksState) => state.items);
   const showEditor = useSelector((state: TasksState) => state.showEditor);
   const dispatch = useDispatch();
@@ -25,4 +25,4 @@ const AllTask = () => {
   );
 };
 
-export default AllTask;
+export default Tasks;

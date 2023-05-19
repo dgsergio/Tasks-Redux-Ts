@@ -5,7 +5,7 @@ import delIcon from '../assets/close-x.svg';
 import { useSelector } from 'react-redux';
 import { useState } from 'react';
 
-const FindTask = () => {
+const SearchTasks = () => {
   const tasks: TaskType[] = useSelector((state: TasksState) => state.items);
   const [query, setQuery] = useState<string>('');
   const [filteredTasks, setFilteredTasks] = useState<TaskType[]>();
@@ -62,4 +62,4 @@ const FindTask = () => {
   );
 };
 
-export default FindTask;
+export default SearchTasks;
