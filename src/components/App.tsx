@@ -6,16 +6,14 @@ import Header from './Header';
 import EditorTask from './EditorTask';
 
 const App = () => {
-  const showEditor: boolean = useSelector(
-    (state: TasksState) => state.showEditor
-  );
+  const isShown: boolean = useSelector((state: TasksState) => state.isShown);
 
   return (
     <>
       <Header />
       <main>
         <SearchTasks />
-        {showEditor && <EditorTask />}
+        {isShown && <EditorTask />}
         <Tasks />
       </main>
     </>

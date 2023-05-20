@@ -4,11 +4,12 @@ export type TaskType = {
   description: string;
   date: string;
   completed: boolean;
+  isSelected: boolean;
 };
 
 export type TasksState = {
   items: TaskType[];
-  showEditor: boolean;
+  isShown: boolean;
 };
 
 export enum MonthList {

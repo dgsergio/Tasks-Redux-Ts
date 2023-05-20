@@ -1,5 +1,10 @@
 import { useDispatch } from 'react-redux';
-import { deleteTask, toggleCompleteTask } from '../store';
+import {
+  deleteTask,
+  toggleCompleteTask,
+  toggleSelectedTask,
+  showEditor,
+} from '../store';
 
 const Options = ({
   onShowOptionHandler,
@@ -20,6 +25,11 @@ const Options = ({
     dispatch(deleteTask(id));
   };
 
+  const editHandler = () => {
+    dispatch(toggleSelectedTask(id));
+    dispatch(showEditor());
+  };
+
   return (
     <>
       <div className="backdrop" onClick={() => onShowOptionHandler(false)} />
@@ -34,7 +44,7 @@ const Options = ({
         </li>
         {!completed && (
           <li>
-            <button>Edit</button>
+            <button onClick={editHandler}>Edit</button>
           </li>
         )}
         <li>

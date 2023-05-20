@@ -1,6 +1,6 @@
-import { useDispatch } from 'react-redux';
-import { addTask, toggleShowEditor } from '../store';
-import { TaskType, MonthList } from '../models/types';
+import { useDispatch, useSelector } from 'react-redux';
+import { addTask, hideEditor } from '../store';
+import { TaskType, MonthList, TasksState } from '../models/types';
 import { useRef, useState } from 'react';
 
 const EditorTask = () => {
@@ -8,6 +8,10 @@ const EditorTask = () => {
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [error, setError] = useState<string>('');
+  const tasks = useSelector((state: TasksState) => state.items);
+  const taskSelected: TaskType | undefined = tasks.find(
+    (task) => task.isSelected === true
+  );
 
   const submitHandler = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -17,18 +21,32 @@ const EditorTask = () => {
       return;
     }
 
+    //edit
+    if (taskSelected) {
+      const editedTak: TaskType = {
+        ...taskSelected,
+        title: titleRef.current.value,
+        description: descriptionRef.current.value,
+        isSelected: false,
+      };
+      dispatch(addTask(editedTak));
+      return;
+    }
+
+    //new
     const date = new Date();
     const dateFormated = `${
       MonthList[date.getMonth()]
     } ${date.getDate()}, ${date.getFullYear()}`;
-    const taskselected: TaskType = {
+    const newTask: TaskType = {
       id: Date.now().toString(),
       title: titleRef.current.value,
       description: descriptionRef.current.value,
       date: dateFormated,
       completed: false,
+      isSelected: false,
     };
-    dispatch(addTask(taskselected));
+    dispatch(addTask(newTask));
   };
 
   return (
@@ -42,6 +60,7 @@ const EditorTask = () => {
           name="title"
           ref={titleRef}
           placeholder="buy a new phone..."
+          defaultValue={taskSelected ? taskSelected.title : ''}
         />
         <label htmlFor="description">Description</label>
         <textarea
@@ -50,12 +69,13 @@ const EditorTask = () => {
           cols={30}
           rows={5}
           placeholder="find a good one for sale..."
+          defaultValue={taskSelected ? taskSelected.description : ''}
         ></textarea>
         {error && <p className="message error-editor">{error}</p>}
         <div className="editor-task-footer">
           <button
             type="button"
-            onClick={() => dispatch(toggleShowEditor())}
+            onClick={() => dispatch(hideEditor())}
             className="editor-task-footer-btn_cancel"
           >
             Cancel
