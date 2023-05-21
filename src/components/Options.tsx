@@ -2,7 +2,7 @@ import { useDispatch } from 'react-redux';
 import {
   deleteTask,
   toggleCompleteTask,
-  toggleSelectedTask,
+  toggleSelectTask,
   showEditor,
 } from '../store';
 
@@ -26,8 +26,9 @@ const Options = ({
   };
 
   const editHandler = () => {
-    dispatch(toggleSelectedTask(id));
+    dispatch(toggleSelectTask(id));
     dispatch(showEditor());
+    onShowOptionHandler(false);
   };
 
   return (

@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addTask, hideEditor } from '../store';
+import { updateTask, hideEditor, toggleSelectTask } from '../store';
 import { TaskType, MonthList, TasksState } from '../models/types';
 import { useRef, useState } from 'react';
 
@@ -23,13 +23,13 @@ const EditorTask = () => {
 
     //edit
     if (taskSelected) {
-      const editedTak: TaskType = {
+      const editedTask: TaskType = {
         ...taskSelected,
         title: titleRef.current.value,
         description: descriptionRef.current.value,
         isSelected: false,
       };
-      dispatch(addTask(editedTak));
+      dispatch(updateTask(editedTask));
       return;
     }
 
@@ -46,7 +46,14 @@ const EditorTask = () => {
       completed: false,
       isSelected: false,
     };
-    dispatch(addTask(newTask));
+    dispatch(updateTask(newTask));
+  };
+
+  const cancelHandler = () => {
+    if (taskSelected) {
+      dispatch(toggleSelectTask(taskSelected.id));
+    }
+    dispatch(hideEditor());
   };
 
   return (
@@ -75,7 +82,7 @@ const EditorTask = () => {
         <div className="editor-task-footer">
           <button
             type="button"
-            onClick={() => dispatch(hideEditor())}
+            onClick={cancelHandler}
             className="editor-task-footer-btn_cancel"
           >
             Cancel

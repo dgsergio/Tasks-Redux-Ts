@@ -2,10 +2,12 @@ import fileIcon from '../assets/file-text.svg';
 import dotsIcon from '../assets/vertical-dots.svg';
 import Options from './Options';
 import { useState } from 'react';
-import { TaskType } from '../models/types.ts';
+import { TaskType, TasksState } from '../models/types.ts';
+import { useSelector } from 'react-redux';
 
 const Task = ({ task }: { task: TaskType }) => {
   const [showOption, setShowOption] = useState<boolean>(false);
+  const isShown = useSelector((state: TasksState) => state.isShown);
 
   const showOptionHandler = (show: boolean) => {
     setShowOption(show);
@@ -30,6 +32,7 @@ const Task = ({ task }: { task: TaskType }) => {
         />
       )}
       <button
+        disabled={isShown}
         onClick={() => showOptionHandler(true)}
         className="task-icon-img_dots"
       >

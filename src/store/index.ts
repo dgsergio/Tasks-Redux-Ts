@@ -17,15 +17,13 @@ const counterSlice = createSlice({
     hideEditor: (state) => {
       state.isShown = false;
     },
-    //change name
-    addTask: (state, action: PayloadAction<TaskType>) => {
+    updateTask: (state, action: PayloadAction<TaskType>) => {
       const editedTask = state.items.find(
         (task) => task.id === action.payload.id
       );
       if (editedTask) {
-        //The problem should be here
         state.items = state.items.map((task) =>
-          task.id === editedTask.id ? editedTask : task
+          task.id === editedTask.id ? action.payload : task
         );
       } else {
         state.items.unshift(action.payload);
@@ -42,7 +40,7 @@ const counterSlice = createSlice({
     deleteTask: (state, action: PayloadAction<string>) => {
       state.items = state.items.filter((task) => task.id !== action.payload);
     },
-    toggleSelectedTask: (state, action: PayloadAction<string>) => {
+    toggleSelectTask: (state, action: PayloadAction<string>) => {
       state.items = state.items.map((task: TaskType) =>
         task.id === action.payload
           ? { ...task, isSelected: !task.isSelected }
@@ -55,10 +53,10 @@ const counterSlice = createSlice({
 export const {
   showEditor,
   hideEditor,
-  addTask,
+  updateTask,
   toggleCompleteTask,
   deleteTask,
-  toggleSelectedTask,
+  toggleSelectTask,
 } = counterSlice.actions;
 
 export const store = configureStore({
