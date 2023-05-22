@@ -1,9 +1,8 @@
 import { createSlice, configureStore, PayloadAction } from '@reduxjs/toolkit';
-import dummyTasks from '../mocks/dummy-tasks';
 import { TaskType, TasksState } from '../models/types';
 
 const initialState: TasksState = {
-  items: dummyTasks.map((item) => ({ ...item, isSelected: false })),
+  items: [],
   isShown: false,
 };
 
@@ -16,6 +15,9 @@ const counterSlice = createSlice({
     },
     hideEditor: (state) => {
       state.isShown = false;
+    },
+    populateTasks: (state, action: PayloadAction<TaskType[]>) => {
+      state.items = action.payload;
     },
     updateTask: (state, action: PayloadAction<TaskType>) => {
       const editedTask = state.items.find(
@@ -51,9 +53,10 @@ const counterSlice = createSlice({
 });
 
 export const {
+  populateTasks,
+  updateTask,
   showEditor,
   hideEditor,
-  updateTask,
   toggleCompleteTask,
   deleteTask,
   toggleSelectTask,
