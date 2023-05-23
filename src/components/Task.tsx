@@ -25,11 +25,7 @@ const Task = ({ task }: { task: TaskType }) => {
         </div>
       </div>
       {showOption && (
-        <Options
-          id={task.id}
-          onShowOptionHandler={showOptionHandler}
-          completed={task.completed}
-        />
+        <Options onShowOptionHandler={showOptionHandler} task={task} />
       )}
       <button
         disabled={isShown}

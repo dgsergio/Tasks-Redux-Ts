@@ -5,7 +5,7 @@ import SearchTasks from './SearchTasks';
 import Header from './Header';
 import EditorTask from './EditorTask';
 import { useEffect } from 'react';
-import { AppDispatch, fetchTasks } from '../store';
+import { AppDispatch, getTasks } from '../store';
 
 const App = () => {
   const isShown: boolean = useSelector((state: TasksState) => state.isShown);
@@ -31,7 +31,7 @@ const App = () => {
 
   useEffect(() => {
     console.log('eff');
-    dispatch(fetchTasks(transformData));
+    dispatch(getTasks(transformData));
   }, []);
 
   return (

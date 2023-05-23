@@ -1,33 +1,35 @@
 import { useDispatch } from 'react-redux';
+import { useState } from 'react';
 import {
-  deleteTask,
   toggleCompleteTask,
   toggleSelectTask,
   showEditor,
+  AppDispatch,
+  editTaskDB,
+  deleteTaskDB,
 } from '../store';
+import { TaskType } from '../models/types';
 
 const Options = ({
   onShowOptionHandler,
-  id,
-  completed,
+  task,
 }: {
   onShowOptionHandler: (show: boolean) => void;
-  id: string;
-  completed: boolean;
+  task: TaskType;
 }) => {
-  const dispatch = useDispatch();
-  const completeHandler = () => {
-    dispatch(toggleCompleteTask(id));
+  const dispatchThunk = useDispatch<AppDispatch>();
+  const [showSure, setShowSure] = useState<boolean>(false);
+
+  const completeHandler = (complete: boolean) => {
+    dispatchThunk(editTaskDB({ ...task, completed: complete }));
+    dispatchThunk(toggleCompleteTask(task.id));
+
     onShowOptionHandler(false);
   };
 
-  const deleteHandler = () => {
-    dispatch(deleteTask(id));
-  };
-
   const editHandler = () => {
-    dispatch(toggleSelectTask(id));
-    dispatch(showEditor());
+    dispatchThunk(toggleSelectTask(task.id));
+    dispatchThunk(showEditor());
     onShowOptionHandler(false);
   };
 
@@ -37,19 +39,27 @@ const Options = ({
       <ul className="task-icon-opt">
         <li>
           <button
-            className={completed ? 'line-through' : ''}
-            onClick={completeHandler}
+            className={task.completed ? 'line-through' : ''}
+            onClick={() =>
+              task.completed ? completeHandler(false) : completeHandler(true)
+            }
           >
             Complete
           </button>
         </li>
-        {!completed && (
+        {!task.completed && (
           <li>
             <button onClick={editHandler}>Edit</button>
           </li>
         )}
         <li>
-          <button onClick={deleteHandler}>Delete</button>
+          {!showSure ? (
+            <button onClick={() => setShowSure(true)}>Delete</button>
+          ) : (
+            <button onClick={() => dispatchThunk(deleteTaskDB(task.id))}>
+              Confirm?
+            </button>
+          )}
         </li>
       </ul>
     </>

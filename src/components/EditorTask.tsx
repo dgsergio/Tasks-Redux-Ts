@@ -1,10 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { updateTask, hideEditor, toggleSelectTask } from '../store';
+import {
+  hideEditor,
+  toggleSelectTask,
+  addTaskDB,
+  AppDispatch,
+  editTaskDB,
+} from '../store';
 import { TaskType, MonthList, TasksState } from '../models/types';
 import { useRef, useState } from 'react';
 
 const EditorTask = () => {
-  const dispatch = useDispatch();
+  const dispatchThunk = useDispatch<AppDispatch>();
   const titleRef = useRef<HTMLInputElement>(null);
   const descriptionRef = useRef<HTMLTextAreaElement>(null);
   const [error, setError] = useState<string>('');
@@ -20,6 +26,13 @@ const EditorTask = () => {
       setError('There is an empty field');
       return;
     }
+    if (
+      titleRef.current.value.length < 3 ||
+      titleRef.current.value.length >= 20
+    ) {
+      setError('The title must have between 3 and 20 characters');
+      return;
+    }
 
     //edit
     if (taskSelected) {
@@ -29,7 +42,7 @@ const EditorTask = () => {
         description: descriptionRef.current.value,
         isSelected: false,
       };
-      dispatch(updateTask(editedTask));
+      dispatchThunk(editTaskDB(editedTask));
       return;
     }
 
@@ -46,14 +59,14 @@ const EditorTask = () => {
       completed: false,
       isSelected: false,
     };
-    dispatch(updateTask(newTask));
+    dispatchThunk(addTaskDB(newTask));
   };
 
   const cancelHandler = () => {
     if (taskSelected) {
-      dispatch(toggleSelectTask(taskSelected.id));
+      dispatchThunk(toggleSelectTask(taskSelected.id));
     }
-    dispatch(hideEditor());
+    dispatchThunk(hideEditor());
   };
 
   return (
@@ -66,6 +79,7 @@ const EditorTask = () => {
           id="title"
           name="title"
           ref={titleRef}
+          required
           placeholder="buy a new phone..."
           defaultValue={taskSelected ? taskSelected.title : ''}
         />
@@ -75,6 +89,7 @@ const EditorTask = () => {
           ref={descriptionRef}
           cols={30}
           rows={5}
+          required
           placeholder="find a good one for sale..."
           defaultValue={taskSelected ? taskSelected.description : ''}
         ></textarea>
