@@ -8,7 +8,7 @@ const Card = ({ task }: { task: TaskType }) => {
   }
 
   return (
-    <div className="card">
+    <div className={`card ${task.completed ? 'complete' : ''}`}>
       <div className="card-header">
         <div className="card-icon">
           <img src={fileSearch} alt="task search icon" />
