@@ -1,19 +1,20 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { TasksState, TaskType } from '../models/types';
+import { StatusFetch, tasksDB, TasksState, TaskType } from '../models/types';
 import Tasks from './Tasks';
 import SearchTasks from './SearchTasks';
 import Header from './Header';
 import EditorTask from './EditorTask';
 import { useEffect } from 'react';
-import useFetch from '../hooks/useFetch';
-import { populateTasks } from '../store';
+import { AppDispatch, fetchTasks } from '../store';
 
 const App = () => {
   const isShown: boolean = useSelector((state: TasksState) => state.isShown);
-  const { sendRequest, reqStatus } = useFetch();
-  const dispatch = useDispatch();
+  const fetchStatus: StatusFetch = useSelector(
+    (state: TasksState) => state.status
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
-  const transformData = (data: any): void => {
+  const transformData = (data: tasksDB): TaskType[] => {
     let newData: TaskType[] = [];
     for (const key in data) {
       newData.push({
@@ -25,25 +26,22 @@ const App = () => {
         isSelected: false,
       });
     }
-    dispatch(populateTasks(newData));
+    return newData;
   };
 
   useEffect(() => {
-    console.log('ef');
-    sendRequest(
-      { url: import.meta.env.VITE_FIREBASE_URL + 'tasks.json' },
-      transformData
-    );
+    console.log('eff');
+    dispatch(fetchTasks(transformData));
   }, []);
 
   return (
     <>
       <Header />
-      {reqStatus.loading && <div className="message">Loading...</div>}
-      {reqStatus.error && (
-        <div className="message error">{reqStatus.error}</div>
+      {fetchStatus.loading && <div className="message">Loading...</div>}
+      {fetchStatus.error && (
+        <div className="message error">{fetchStatus.error}</div>
       )}
-      {!reqStatus.loading && !reqStatus.error && (
+      {!fetchStatus.loading && !fetchStatus.error && (
         <main>
           <SearchTasks />
           {isShown && <EditorTask />}

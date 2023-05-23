@@ -7,9 +7,24 @@ export type TaskType = {
   isSelected: boolean;
 };
 
+export type StatusFetch = {
+  loading: boolean;
+  error: string;
+};
+
 export type TasksState = {
   items: TaskType[];
   isShown: boolean;
+  status: StatusFetch;
+};
+
+export type tasksDB = {
+  [key: string]: {
+    title: string;
+    description: string;
+    date: string;
+    completed: boolean;
+  };
 };
 
 export enum MonthList {
